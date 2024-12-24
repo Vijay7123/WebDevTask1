@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .age-calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .age-calculator h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #5c67f2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calculate-btn:hover {
+            background-color: #4953c2;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="age-calculator">
+        <h1>Age Calculator</h1>
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob">
+        </div>
+        <button class="calculate-btn" id="calculate">Calculate Age</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', () => {
+            const dob = document.getElementById('dob').value;
+            if (!dob) {
+                document.getElementById('result').textContent = "Please select a valid date of birth.";
+                return;
+            }
+
+            const dobDate = new Date(dob);
+            const today = new Date();
+
+            let age = today.getFullYear() - dobDate.getFullYear();
+            const monthDifference = today.getMonth() - dobDate.getMonth();
+
+            if (
+                monthDifference < 0 || 
+                (monthDifference === 0 && today.getDate() < dobDate.getDate())
+            ) {
+                age--;
+            }
+
+            document.getElementById('result').textContent = `Your age is ${age} years.`;
+        });
+    </script>
+</body>
+</html>
